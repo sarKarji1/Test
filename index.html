@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp QR Pairing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #qrCode {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scan the QR Code to Pair</h1>
+    <div>
+        <img id="qrCode" src="" alt="QR Code">
+    </div>
+    <script>
+        async function getQR() {
+            try {
+                const response = await fetch('/generate-qr');
+                const data = await response.json();
+                document.getElementById('qrCode').src = data.qrCodeUrl;
+            } catch (error) {
+                console.error('Error generating QR:', error);
+            }
+        }
+
+        window.onload = getQR;
+    </script>
+</body>
+</html>
